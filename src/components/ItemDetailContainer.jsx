@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 const { Title, Paragraph } = Typography;
 
 const ItemDetailContainer = () => {
-  const { id } = useParams();
+  const { id } = useParams(); // Extraemos el id del producto desde la URL
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
@@ -13,15 +13,19 @@ const ItemDetailContainer = () => {
     const fetchProduct = async () => {
       const data = await new Promise((resolve) => {
         setTimeout(() => {
-          // En un escenario real aquí harías una consulta al backend
-          resolve({ id, name: `Producto ${id}`, description: `Descripción del producto ${id}` });
+          // En un escenario real, aquí harías una consulta al backend
+          resolve({
+            id,
+            name: `Producto ${id}`,
+            description: `Descripción del producto ${id}`,
+          });
         }, 1000);
       });
       setProduct(data);
     };
 
     fetchProduct();
-  }, [id]);
+  }, [id]); // Cada vez que el parámetro 'id' cambie, se vuelve a ejecutar el efecto
 
   return (
     <div style={{ padding: "20px" }}>

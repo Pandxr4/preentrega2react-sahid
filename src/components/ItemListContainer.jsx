@@ -5,11 +5,12 @@ import { useParams, Link } from "react-router-dom";
 const { Title, Paragraph } = Typography;
 
 const ItemListContainer = ({ greeting }) => {
-  const { id } = useParams(); // id representa la categoría cuando esté presente
+  // Extraemos "id" que representa la categoría, si está presente en la URL.
+  const { id } = useParams();
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    // Simulamos una llamada asíncrona con un retraso para obtener productos
+    // Simulación de una llamada asíncrona para obtener productos.
     const fetchProducts = async () => {
       const data = await new Promise((resolve) => {
         setTimeout(() => {
@@ -22,8 +23,9 @@ const ItemListContainer = ({ greeting }) => {
           resolve(sampleProducts);
         }, 1000);
       });
+      
+      // Si existe un parámetro "id" en la URL, se filtran los productos según la categoría.
       if (id) {
-        // Si se especifica un id, filtramos los productos por ese criterio
         setProducts(data.filter((product) => product.category === id));
       } else {
         setProducts(data);
@@ -31,17 +33,19 @@ const ItemListContainer = ({ greeting }) => {
     };
 
     fetchProducts();
-  }, [id]); // Se vuelve a ejecutar el efecto cada vez que 'id' cambie
+  }, [id]); // Se reejecuta el efecto cada vez que "id" cambia
 
   return (
     <div style={{ padding: "20px" }}>
       <Card>
-        {/* Si existe id en la URL, mostramos el título específico para la categoría */}
-        <Title level={2}>{id ? `Productos en la categoría: ${id}` : greeting}</Title>
+        {/* Se muestra un título que varía si estamos filtrando por categoría o no */}
+        <Title level={2}>
+          {id ? `Productos en la categoría: ${id}` : greeting}
+        </Title>
         {products.length > 0 ? (
           products.map((product) => (
             <Paragraph key={product.id}>
-              {/* Al hacer click, se navega a /item/:id */}
+              {/* Cada producto es un link que, al hacer click, navega a su detalle: /item/:id */}
               <Link to={`/item/${product.id}`}>{product.name}</Link>
             </Paragraph>
           ))

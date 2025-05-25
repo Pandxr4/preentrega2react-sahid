@@ -9,7 +9,7 @@ const App = () => {
       {/* El NavBar estará presente en todas las rutas */}
       <NavBar />
       <Routes>
-        {/* Ruta para el catálogo general */}
+        {/* Ruta para el catálogo general con mensaje de bienvenida */}
         <Route
           path="/"
           element={

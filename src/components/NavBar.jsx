@@ -4,7 +4,8 @@ import CartWidget from "./CartWidget";
 import "../styles.css";
 
 const NavBar = () => {
-  // Definimos el array de items, envolviendo cada label en un <Link>
+  // Array de items para el menú, que incluye enlaces para "Novedades" y
+  // un grupo de categorías en "Productos" (divididas en "Frutos Secos" y "Legumbres").
   const items = [
     {
       label: <Link to="/">Novedades</Link>,
@@ -36,11 +37,13 @@ const NavBar = () => {
 
   return (
     <div className="navBar">
-      {/* Al hacer click en el brand, se redirige a "/" */}
+      {/* Al hacer click en el brand se redirige a la ruta principal */}
       <span className="brand">
         <Link to="/">Pandxra Nature</Link>
       </span>
+      {/* Menú de navegación utilizando Ant Design */}
       <Menu mode="horizontal" items={items} />
+      {/* Widget del carrito */}
       <CartWidget />
     </div>
   );
